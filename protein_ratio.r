@@ -5,19 +5,13 @@
 ########################################
 
 
-protein.ratio = function(dataset,folder,quant.min,group.index,protein.index,quant.index,den) {
+protein.ratio = function(filename, filename_out, quant.min, group.index, protein.index, quant.index, den) {
   
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between duplicates
   bins = 8            #Number of bins for weight calculation
   
-  #Define folders to save output to
-  folder.data = paste(folder,"data/",sep="")
-  folder.weights =  paste(folder,"weights/",sep="")
-  folder.results = paste(folder,"quant/",sep="")
-  
   #Load peptide data
-  filename = paste(folder.data,dataset,".txt",sep="")
   pep = read.delim(filename,header=TRUE,check.names=FALSE,row.names=NULL,sep="\t")
   
   #Remove peptides without protein group accession and peptides shared between several protein groups
@@ -101,8 +95,6 @@ protein.ratio = function(dataset,folder,quant.min,group.index,protein.index,quan
   column.names = c(quant.columns,paste(quant.columns,"no.peptides",sep=".")) 
   colnames(quant.table) = column.names
   
-  filename = paste(folder.results,dataset,"_protein_ratios.txt",sep="")
-  write.table(quant.table,file=filename,col.names=NA,sep="\t")
-  
+  write.table(quant.table, file=filename_out, col.names=NA, sep="\t")
 }
 

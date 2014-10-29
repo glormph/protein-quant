@@ -15,9 +15,9 @@ args = commandArgs(TRUE)
 if (length(args)<7) {
   stop("Too few input arguments. Provide the following input arguments:
        
-       The name of the dataset to analyse
+       The full path to the tsv file to run protein quant on
        
-       The name of the main folder which holds subfolders data, weights, quant
+       The name of the output file which will be written to the working directory
        
        The minimum intensity to include (noise level)
        
@@ -35,7 +35,7 @@ if (length(args)<7) {
 }
 
 dataset = as.character(args[1])
-folder = as.character(args[2])
+outfilename = as.character(args[2])
 quant.min = as.numeric(args[3])
 group.index = as.numeric(args[4])
 protein.index = as.numeric(args[5])
@@ -48,10 +48,7 @@ if (length(args)>7) {
 }
 
 #Call function to normalise peptides to same sample median
-norm.sample.median(dataset,folder,quant.index)
-
-#Change name of dataset
-dataset = paste(dataset,"_norm",sep="")
+normdataset = norm.sample.median(dataset, quant.index)
 
 #Call function to calculate protein ratios
-protein.ratio(dataset,folder,quant.min,group.index,protein.index,quant.index,den)
+protein.ratio(normdataset, outfilename, quant.min, group.index, protein.index, quant.index, den)

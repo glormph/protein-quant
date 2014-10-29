@@ -1,14 +1,10 @@
 #Function for normalising to same sample median
 #Lina Hultin-Rosenberg 20120222
 
-norm.sample.median = function(dataset,folder,quant.index)
+norm.sample.median = function(filename, quant.index)
 {
   
-  #Define folder to save output to
-  folder.data = paste(folder,"data/",sep="")
-  
   #Load peptide data
-  filename = paste(folder.data,dataset,".txt",sep="")
   pep.data = read.delim(filename,header=TRUE,check.names=FALSE,row.names=NULL,sep="\t")
   
   #Extract quantitative data
@@ -27,7 +23,8 @@ norm.sample.median = function(dataset,folder,quant.index)
   #Save normalised peptide data
   pep.norm = pep.data
   pep.norm[,quant.index] = int.norm
-  filename = paste(folder.data,dataset,"_norm.txt",sep="")
-  write.table(pep.norm,file=filename,row.names=FALSE,sep="\t")
+  outfile = paste(filename, "_norm.txt", sep="")
+  write.table(pep.norm, file=outfile, row.names=FALSE, sep="\t")
   
+  return(outfile)
 }
