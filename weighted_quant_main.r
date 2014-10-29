@@ -22,7 +22,7 @@ if (length(args)<9) {
        
        The name of the dataset to analyse
 
-       The name of the main folder which holds subfolders data, weights, quant
+       The name of the output file to be written to the current working directory
 
        The minimum intensity to include (noise level)
        
@@ -44,7 +44,7 @@ if (length(args)<9) {
 }
 
 dataset = as.character(args[1])
-folder = as.character(args[2])
+outfilename = as.character(args[2])
 quant.min = as.numeric(args[3])
 group.index = as.numeric(args[4])
 protein.index = as.numeric(args[5])
@@ -59,17 +59,16 @@ if (length(args)>9) {
 }
 
 #Call function to normalise peptides to same sample median
-norm.sample.median(dataset,folder,quant.index)
-
-#Change name of dataset
-dataset = paste(dataset,"_norm",sep="")
+normfile = norm.sample.median(dataset, quant.index)
 
 #Call function to calculate weights based on internal training set (technical duplicates)
-calculate.weights(dataset,folder,quant.min,num.1,den.1)
+weights <- calculate.weights(normfile, quant.min, num.1, den.1)
+var_file <- weights[1]
+weight_file <- weights[2]
 
 #Call function to calculate error on protein lelvel based on internal training set (technical duplicates)
-calculate.error(dataset,folder,quant.min,group.index,num.1,den.1)
+weight_results_file <- calculate.error(dataset, weight_file, quant.min, group.index, num.1, den.1)
 
 #Call function to calculate weighted protein quant for all quant columns
-w.protein.ratio(dataset,folder,quant.min,group.index,protein.index,quant.index,den.2)
+w.protein.ratio(dataset, weight_results_file,  quant.min, group.index, protein.index, quant.index, den.2)
 

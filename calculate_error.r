@@ -5,19 +5,14 @@
 #######################################################################################
 
 
-calculate.error = function(dataset,folder,quant.min,group.index,num,den) {
+calculate.error = function(filename, weight_filename, quant.min, group.index, num, den) {
   
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between duplicates
   bins = 8            #Number of bins for weight calculation
   
-  #Define folders to save output to
-  folder.data = paste(folder,"data/",sep="")
-  folder.weights =  paste(folder,"weights/",sep="")
-  
   #Load peptide data
-  filename = paste(folder.data,dataset,".txt",sep="")
-  pep = read.delim(filename,header=TRUE,check.names=FALSE,row.names=NULL,sep="\t")
+  pep = read.delim(filename, header=TRUE, check.names=FALSE, row.names=NULL, sep="\t")
   
   #Remove peptides without protein group accession and peptides shared between several protein groups
   pep = pep[pep[,group.index]!="",]
@@ -45,8 +40,7 @@ calculate.error = function(dataset,folder,quant.min,group.index,num,den) {
   ##Calculate weighted protein quantities for technical duplicates ratio
   
   #Load weight matrix
-  filename = paste(folder.weights,dataset,"_weight_matrix.txt",sep="")
-  weight.matrix = read.delim(filename,header=TRUE,sep="\t")
+  weight.matrix = read.delim(weight_filename,header=TRUE,sep="\t")
   
   #Select quant columns to calculate protein quant for
   quant.num = pep.quant[,1]
@@ -92,9 +86,9 @@ calculate.error = function(dataset,folder,quant.min,group.index,num,den) {
   weight.results[index.na,] = NA
   
   #Save weight results
-  filename = paste(folder.weights,dataset,"_weight_results.txt",sep="")
-  write.table(weight.results,file=filename,col.names=NA,sep="\t")
-  
+  weight_results_filename = paste(filename, "_weight_results.txt", sep="")
+  write.table(weight.results, file=weight_results_filename, col.names=NA, sep="\t")
+  return(weight_results_filename) 
 }
 
 

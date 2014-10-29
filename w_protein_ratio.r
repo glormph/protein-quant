@@ -5,7 +5,7 @@
 ###############################################################################
 
 
-w.protein.ratio = function(dataset,folder,quant.min,group.index,protein.index,quant.index,den) {
+w.protein.ratio = function(filename, weightresults_filename, folder,quant.min,group.index,protein.index,quant.index,den) {
   
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between duplicates
@@ -15,13 +15,7 @@ w.protein.ratio = function(dataset,folder,quant.min,group.index,protein.index,qu
   no.peptides = c(1,2,3,4,5,6,10)
   no.peptides.text = c("1","2","3","4","5","6-10",">10")
   
-  #Define folders to save output to
-  folder.data = paste(folder,"data/",sep="")
-  folder.weights =  paste(folder,"weights/",sep="")
-  folder.results = paste(folder,"quant/",sep="")
-  
   #Load peptide data
-  filename = paste(folder.data,dataset,".txt",sep="")
   pep = read.delim(filename,header=TRUE,check.names=FALSE,row.names=NULL,sep="\t")
   
   #Remove peptides without protein group accession and peptides shared between several protein groups
@@ -258,8 +252,8 @@ w.protein.ratio = function(dataset,folder,quant.min,group.index,protein.index,qu
   column.names = c(quant.columns,paste(quant.columns,"no.peptides",sep="."),paste(quant.columns,"weight",sep="."),paste(quant.columns,"rel.error",sep=".")) 
   colnames(quant.table) = column.names
   
-  filename = paste(folder.results,dataset,"_protein_quant_table.txt",sep="")
-  write.table(quant.table,file=filename,col.names=NA,sep="\t")
+  prot_quant_table_file = paste(filename, "_protein_quant_table.txt", sep="")
+  write.table(quant.table, file=prot_quant_table_file, col.names=NA, sep="\t")
   
   #Save protein ratio table
   ratio.table = cbind(unique.proteins.all,protein.ratios,protein.peptides)
@@ -267,10 +261,8 @@ w.protein.ratio = function(dataset,folder,quant.min,group.index,protein.index,qu
   column.names = c("Proteins.in.group",ratio.columns,paste(ratio.columns,"no.peptides",sep=".")) 
   colnames(ratio.table) = column.names
   
-  filename = paste(folder.results,dataset,"_w_protein_ratios.txt",sep="")
-  write.table(ratio.table,file=filename,col.names=NA,sep="\t")
-  
-  
+  wquant_filename = paste(filename, "_w_protein_ratios.txt", sep="")
+  write.table(ratio.table, file=wquant_filename, col.names=NA, sep="\t")
 }
   
   

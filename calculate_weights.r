@@ -4,19 +4,14 @@
 # lina.hultin-rosenberg@scilifelab.se
 ########################################################################
 
-calculate.weights = function(dataset,folder,quant.min,num,den) {
+calculate.weights = function(filename, quant.min, num, den) {
   
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between technical duplicates
   bins = 8            #Number of bins to divide peptide in for weight calculation
   
-  #Define folders to save output to
-  folder.data = paste(folder,"data/",sep="")
-  folder.weights =  paste(folder,"weights/",sep="")
-  
   #Load peptide data
-  filename = paste(folder.data,dataset,".txt",sep="")
-  pep.data = read.delim(filename,header=TRUE,check.names=FALSE,row.names=NULL,sep="\t")
+  pep.data = read.delim(filename, header=TRUE, check.names=FALSE, row.names=NULL, sep="\t")
   
   ##Calculate weight-matrix for technical duplicates
   
@@ -48,12 +43,13 @@ calculate.weights = function(dataset,folder,quant.min,num,den) {
   weight.matrix = getWeightMatrix(variance.matrix,bins)
   
   #Save variance and weight matrix
-  filename = paste(folder.weights,dataset,"_variance_matrix.txt",sep="")
-  write.table(variance.matrix,file=filename,row.names=FALSE,sep="\t")
+  variance_filename = paste(filename, "_variance_matrix.txt", sep="")
+  write.table(variance.matrix, file=variance_filename, row.names=FALSE, sep="\t")
   
-  filename = paste(folder.weights,dataset,"_weight_matrix.txt",sep="")
-  write.table(weight.matrix,file=filename,row.names=FALSE,sep="\t")
+  weight_filename = paste(filename, "_weight_matrix.txt", sep="")
+  write.table(weight.matrix, file=weight_filename, row.names=FALSE, sep="\t")
   
+  return(c(variance_filename, weight_filename))
   ##Plot ratios versus minimum intensity
   #filename = paste(folder.weights,dataset,"_ratio_plot.tif",sep="")
   #tiff(file=filename)
