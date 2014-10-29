@@ -5,7 +5,7 @@
 ###############################################################################
 
 
-w.protein.ratio = function(filename, weightresults_filename, folder,quant.min,group.index,protein.index,quant.index,den) {
+w.protein.ratio = function(filename, weightresults_filename, quant.min,group.index, protein.index, quant.index, den) {
   
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between duplicates
@@ -116,8 +116,7 @@ w.protein.ratio = function(filename, weightresults_filename, folder,quant.min,gr
   #Load data for training set
   
   #Load weight results
-  filename = paste(folder.weights,dataset,"_weight_results.txt",sep="")
-  weight.results = read.delim(filename,row.names=1,header=TRUE,sep="\t")
+  weight.results = read.delim(weight_results_file, row.names=1, header=TRUE, sep="\t")
   
   #Get loess function for error versus average weight of proteins (95%) - for technical duplicates
   

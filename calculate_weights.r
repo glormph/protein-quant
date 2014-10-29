@@ -53,22 +53,22 @@ calculate.weights = function(filename, quant.min, num, den) {
   ##Plot ratios versus minimum intensity
   #filename = paste(folder.weights,dataset,"_ratio_plot.tif",sep="")
   #tiff(file=filename)
-  filename = paste(folder.weights,dataset,"_ratio_plot.png",sep="")
-  png(file=filename)
-  par(mar=c(2.5,2.5,0.5,0.5),mgp=c(1.4,0.5,0))
-  plot(reference,estimated.ratio,main="",xlab="log2 of minimum intensity",ylab="log2 of ratio",pch=20)
-  abline(a=0,b=0)
-  abline(v=weight.matrix[-nrow(weight.matrix),3],col=grey(0.8))
-  dev.off()
-  
-  ##Plot weights for bins
-  #filename = paste(folder.weights,dataset,"_weight_plot.tif",sep="")
-  #tiff(file=filename)
-  filename = paste(folder.weights,dataset,"_weight_plot.png",sep="")
-  png(file=filename)
-  par(mar=c(2.5,2.5,1,0.5),mgp=c(1.4,0.5,0))
-  barplot(weight.matrix[,4],main="",names.arg="",xlab="Bins",ylab="Weights")
-  dev.off()
+  #filename = paste(folder.weights,dataset,"_ratio_plot.png",sep="")
+  #png(file=filename)
+  #par(mar=c(2.5,2.5,0.5,0.5),mgp=c(1.4,0.5,0))
+  #plot(reference,estimated.ratio,main="",xlab="log2 of minimum intensity",ylab="log2 of ratio",pch=20)
+  #abline(a=0,b=0)
+  #abline(v=weight.matrix[-nrow(weight.matrix),3],col=grey(0.8))
+  #dev.off()
+  #
+  ###Plot weights for bins
+  ##filename = paste(folder.weights,dataset,"_weight_plot.tif",sep="")
+  ##tiff(file=filename)
+  #filename = paste(folder.weights,dataset,"_weight_plot.png",sep="")
+  #png(file=filename)
+  #par(mar=c(2.5,2.5,1,0.5),mgp=c(1.4,0.5,0))
+  #barplot(weight.matrix[,4],main="",names.arg="",xlab="Bins",ylab="Weights")
+  #dev.off()
   
 }
   
