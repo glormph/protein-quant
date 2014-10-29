@@ -60,8 +60,8 @@ w.protein.ratio = function(filename, weightresults_filename, folder,quant.min,gr
   ##Calculate weighted protein ratios (all columns)
   
   #Load weight matrix
-  filename = paste(folder.weights,dataset,"_weight_matrix.txt",sep="")
-  weight.matrix = read.delim(filename,header=TRUE,sep="\t")
+  filename = paste(dataset,"_weight_matrix.txt",sep="")
+  weight.matrix = read.delim(weight_matrix_file, header=TRUE, sep="\t")
   
   protein.weights = matrix(data=NA,nrow=no.proteins,ncol=ncol(pep.quant))
   protein.ratios = matrix(data=NA,nrow=no.proteins,ncol=ncol(pep.quant))
