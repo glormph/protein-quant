@@ -67,8 +67,8 @@ var_file <- weights[1]
 weight_file <- weights[2]
 
 #Call function to calculate error on protein lelvel based on internal training set (technical duplicates)
-weight_results_file <- calculate.error(dataset, weight_file, quant.min, group.index, num.1, den.1)
+weight_results_file <- calculate.error(normfile, weight_file, quant.min, group.index, num.1, den.1)
 
 #Call function to calculate weighted protein quant for all quant columns
-w.protein.ratio(dataset, weight_results_file,  quant.min, group.index, protein.index, quant.index, den.2)
+w.protein.ratio(normfile, weight_results_file,  quant.min, group.index, protein.index, quant.index, den.2)
 
