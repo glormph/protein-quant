@@ -123,9 +123,9 @@ w.protein.ratio = function(filename, weightresults_filename, quant.min,group.ind
   #Plot error versus average weight of proteins (95% loess smoothers)
   #filename = paste(folder.results,dataset,"_protein_error_weights.tif",sep="")
   #tiff(file=filename)
-  filename = paste(folder.results,dataset,"_protein_error_weights.png",sep="")
-  png(file=filename)
-  par(mar=c(3,3,0.5,0.5),mgp=c(1.5,0.5,0))
+  #filename = paste(folder.results,dataset,"_protein_error_weights.png",sep="")
+  #png(file=filename)
+  #par(mar=c(3,3,0.5,0.5),mgp=c(1.5,0.5,0))
   
   #For each number of peptides
   protein.weights.ref = c()
@@ -207,14 +207,14 @@ w.protein.ratio = function(filename, weightresults_filename, quant.min,group.ind
     lo.errors = loess(y~x,data.errors,span=0.5,degree=1)
     loess.list[i] = list(lo.errors)
     
-    if (i==1) {
-      plot(data.errors$x,predict(lo.errors,data.errors$x),xlab="Protein weight",ylab="Relative error (%)",type="l",col=i,ylim=c(0,max(protein.errors.runmed)))  
-    } else {
-      lines(data.errors$x,predict(lo.errors,data.errors$x),col=i)
+  #  if (i==1) {
+  #    plot(data.errors$x,predict(lo.errors,data.errors$x),xlab="Protein weight",ylab="Relative error (%)",type="l",col=i,ylim=c(0,max(protein.errors.runmed)))  
+  #  } else {
+  #    lines(data.errors$x,predict(lo.errors,data.errors$x),col=i)
     }
   }
-  legend("topright",no.peptides.text,col=c(1:7),lty=1)
-  dev.off()
+  #legend("topright",no.peptides.text,col=c(1:7),lty=1)
+  #dev.off()
   
   #Create matrix to save relative error estimated by loess
   error.matrix = matrix(NA,nrow=nrow(protein.ratios),ncol=ncol(protein.ratios),byrow=FALSE,dimnames=list(rownames(protein.ratios)))
