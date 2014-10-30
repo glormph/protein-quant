@@ -80,9 +80,7 @@ calculate.error = function(pep, weight.matrix, quant.min, group.index, num, den)
   weight.results[index.na,] = NA
   
   #Save weight results
-  weight_results_filename = paste(filename, "_weight_results.txt", sep="")
-  write.table(weight.results, file=weight_results_filename, col.names=NA, sep="\t")
-  return(weight_results_filename) 
+  return(weight.results) 
 }
 
 
