@@ -5,7 +5,7 @@
 ###############################################################################
 
 
-w.protein.ratio = function(filename, weightmatrix_filename, weightresults_filename, quant.min,group.index, protein.index, quant.index, den) {
+w.protein.ratio = function(pep, weightmatrix_filename, weightresults_filename, quant.min,group.index, protein.index, quant.index, den) {
   
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between duplicates
@@ -14,9 +14,6 @@ w.protein.ratio = function(filename, weightmatrix_filename, weightresults_filena
   #Define number of peptides for plotting
   no.peptides = c(1,2,3,4,5,6,10)
   no.peptides.text = c("1","2","3","4","5","6-10",">10")
-  
-  #Load peptide data
-  pep = read.delim(filename,header=TRUE,check.names=FALSE,row.names=NULL,sep="\t")
   
   #Remove peptides without protein group accession and peptides shared between several protein groups
   pep = pep[pep[,group.index]!="",]

@@ -48,7 +48,7 @@ if (length(args)>7) {
 }
 
 #Call function to normalise peptides to same sample median
-normdataset = norm.sample.median(dataset, quant.index)
+normalized_peptides = norm.sample.median(dataset, quant.index)
 
 #Call function to calculate protein ratios
-protein.ratio(normdataset, outfilename, quant.min, group.index, protein.index, quant.index, den)
+protein.ratio(normalized_peptides, outfilename, quant.min, group.index, protein.index, quant.index, den)

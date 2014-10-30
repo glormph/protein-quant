@@ -23,8 +23,6 @@ norm.sample.median = function(filename, quant.index)
   #Save normalised peptide data
   pep.norm = pep.data
   pep.norm[,quant.index] = int.norm
-  outfile = paste(filename, "_norm.txt", sep="")
-  write.table(pep.norm, file=outfile, row.names=FALSE, sep="\t")
   
-  return(outfile)
+  return(pep.norm)
 }

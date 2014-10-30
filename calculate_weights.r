@@ -4,14 +4,11 @@
 # lina.hultin-rosenberg@scilifelab.se
 ########################################################################
 
-calculate.weights = function(filename, quant.min, num, den) {
+calculate.weights = function(pep.data, quant.min, num, den) {
   
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between technical duplicates
   bins = 8            #Number of bins to divide peptide in for weight calculation
-  
-  #Load peptide data
-  pep.data = read.delim(filename, header=TRUE, check.names=FALSE, row.names=NULL, sep="\t")
   
   ##Calculate weight-matrix for technical duplicates
   

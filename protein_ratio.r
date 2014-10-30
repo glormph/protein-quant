@@ -5,14 +5,11 @@
 ########################################
 
 
-protein.ratio = function(filename, filename_out, quant.min, group.index, protein.index, quant.index, den) {
+protein.ratio = function(pep, filename_out, quant.min, group.index, protein.index, quant.index, den) {
   
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between duplicates
   bins = 8            #Number of bins for weight calculation
-  
-  #Load peptide data
-  pep = read.delim(filename,header=TRUE,check.names=FALSE,row.names=NULL,sep="\t")
   
   #Remove peptides without protein group accession and peptides shared between several protein groups
   pep = pep[pep[,group.index]!="",]

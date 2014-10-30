@@ -5,14 +5,11 @@
 #######################################################################################
 
 
-calculate.error = function(filename, weight_filename, quant.min, group.index, num, den) {
+calculate.error = function(pep, weight_filename, quant.min, group.index, num, den) {
   
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between duplicates
   bins = 8            #Number of bins for weight calculation
-  
-  #Load peptide data
-  pep = read.delim(filename, header=TRUE, check.names=FALSE, row.names=NULL, sep="\t")
   
   #Remove peptides without protein group accession and peptides shared between several protein groups
   pep = pep[pep[,group.index]!="",]
