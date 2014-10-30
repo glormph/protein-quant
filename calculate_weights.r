@@ -42,14 +42,11 @@ calculate.weights = function(filename, quant.min, num, den) {
   #Create weight matrix (call function getWeight)
   weight.matrix = getWeightMatrix(variance.matrix,bins)
   
-  #Save variance and weight matrix
-  variance_filename = paste(filename, "_variance_matrix.txt", sep="")
-  write.table(variance.matrix, file=variance_filename, row.names=FALSE, sep="\t")
-  
+  #Save weight matrix
   weight_filename = paste(filename, "_weight_matrix.txt", sep="")
   write.table(weight.matrix, file=weight_filename, row.names=FALSE, sep="\t")
   
-  return(c(variance_filename, weight_filename))
+  return(weight_filename)
   ##Plot ratios versus minimum intensity
   #filename = paste(folder.weights,dataset,"_ratio_plot.tif",sep="")
   #tiff(file=filename)

@@ -62,9 +62,7 @@ if (length(args)>9) {
 normfile = norm.sample.median(dataset, quant.index)
 
 #Call function to calculate weights based on internal training set (technical duplicates)
-weights <- calculate.weights(normfile, quant.min, num.1, den.1)
-var_file <- weights[1]
-weight_file <- weights[2]
+weight_file <- calculate.weights(normfile, quant.min, num.1, den.1)
 
 #Call function to calculate error on protein lelvel based on internal training set (technical duplicates)
 weight_results_file <- calculate.error(normfile, weight_file, quant.min, group.index, num.1, den.1)
