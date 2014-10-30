@@ -39,11 +39,7 @@ calculate.weights = function(pep.data, quant.min, num, den) {
   #Create weight matrix (call function getWeight)
   weight.matrix = getWeightMatrix(variance.matrix,bins)
   
-  #Save weight matrix
-  weight_filename = paste(filename, "_weight_matrix.txt", sep="")
-  write.table(weight.matrix, file=weight_filename, row.names=FALSE, sep="\t")
-  
-  return(weight_filename)
+  return(weight.matrix)
   ##Plot ratios versus minimum intensity
   #filename = paste(folder.weights,dataset,"_ratio_plot.tif",sep="")
   #tiff(file=filename)

@@ -5,7 +5,7 @@
 #######################################################################################
 
 
-calculate.error = function(pep, weight_filename, quant.min, group.index, num, den) {
+calculate.error = function(pep, weight.matrix, quant.min, group.index, num, den) {
   
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between duplicates
@@ -36,10 +36,7 @@ calculate.error = function(pep, weight_filename, quant.min, group.index, num, de
   
   ##Calculate weighted protein quantities for technical duplicates ratio
   
-  #Load weight matrix
-  weight.matrix = read.delim(weight_filename,header=TRUE,sep="\t")
-  
-  #Select quant columns to calculate protein quant for
+  #select quant columns to calculate protein quant for
   quant.num = pep.quant[,1]
   quant.den = pep.quant[,2]
   
