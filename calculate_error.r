@@ -6,7 +6,6 @@
 
 
 calculate.error = function(pep, weight.matrix, quant.min, group.index, num, den) {
-  
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between duplicates
   bins = 8            #Number of bins for weight calculation

@@ -5,7 +5,7 @@
 ###############################################################################
 
 
-w.protein.ratio = function(pep, weight.matrix, weight.results, quant.min,group.index, protein.index, quant.index, den) {
+w.protein.ratio = function(pep, filename, weight.matrix, weight.results, quant.min,group.index, protein.index, quant.index, den) {
   
   #Define parameters for weight calculation
   ratio = 1           #Expected ratio between duplicates
@@ -201,7 +201,7 @@ w.protein.ratio = function(pep, weight.matrix, weight.results, quant.min,group.i
   #    plot(data.errors$x,predict(lo.errors,data.errors$x),xlab="Protein weight",ylab="Relative error (%)",type="l",col=i,ylim=c(0,max(protein.errors.runmed)))  
   #  } else {
   #    lines(data.errors$x,predict(lo.errors,data.errors$x),col=i)
-    }
+    
   }
   #legend("topright",no.peptides.text,col=c(1:7),lty=1)
   #dev.off()

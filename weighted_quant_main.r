@@ -9,11 +9,11 @@
 #Load dependencies and functions
 suppressMessages(library(Hmisc))
 
-source('~/r_scripts/norm_sample_median.r')
-source('~/r_scripts/getWeight.r')
-source('~/r_scripts/calculate_weights.r')
-source('~/r_scripts/calculate_error.r')
-source('~/r_scripts/w_protein_ratio.r')
+source('norm_sample_median.r')
+source('getWeight.r')
+source('calculate_weights.r')
+source('calculate_error.r')
+source('w_protein_ratio.r')
 
 args = commandArgs(TRUE)
 
@@ -22,7 +22,8 @@ if (length(args)<9) {
        
        The name of the dataset to analyse
 
-       The name of the output file to be written to the current working directory
+       The name of the base output file to be written to the current working directory
+       This script will write 2 files using this base name
 
        The minimum intensity to include (noise level)
        
@@ -65,7 +66,7 @@ normalized_peptides = norm.sample.median(dataset, quant.index)
 weight_matrix <- calculate.weights(normalized_peptides, quant.min, num.1, den.1)
 
 #Call function to calculate error on protein lelvel based on internal training set (technical duplicates)
-weight_results <- calculate.error(normalized_peptides, weight.matrix, quant.min, group.index, num.1, den.1)
+weight_results <- calculate.error(normalized_peptides, weight_matrix, quant.min, group.index, num.1, den.1)
 
 #Call function to calculate weighted protein quant for all quant columns
-w.protein.ratio(normalized_peptides, weight_matrix, weight_results,  quant.min, group.index, protein.index, quant.index, den.2)
+w.protein.ratio(normalized_peptides, outfilename, weight_matrix, weight_results,  quant.min, group.index, protein.index, quant.index, den.2)
