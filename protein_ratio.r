@@ -92,6 +92,6 @@ protein.ratio = function(pep, filename_out, quant.min, group.index, protein.inde
   column.names = c(quant.columns,paste(quant.columns,"no.peptides",sep=".")) 
   colnames(quant.table) = column.names
   
-  write.table(quant.table, file=filename_out, col.names=NA, sep="\t")
+  write.table(quant.table, file=filename_out, col.names=NA, sep="\t", quote=F)
 }
 
