@@ -9,11 +9,16 @@
 #Load dependencies and functions
 suppressMessages(library(Hmisc))
 
-source('norm_sample_median.r')
-source('getWeight.r')
-source('calculate_weights.r')
-source('calculate_error.r')
-source('w_protein_ratio.r')
+initial.options <- commandArgs(trailingOnly = FALSE)
+file.arg.name <- "--file="
+script.name <- sub(file.arg.name, "", initial.options[grep(file.arg.name, initial.options)])
+script.basename <- dirname(script.name)
+
+source(file.path(script.basename, 'norm_sample_median.r'))
+source(file.path(script.basename, 'getWeight.r'))
+source(file.path(script.basename, 'calculate_weights.r'))
+source(file.path(script.basename, 'calculate_error.r'))
+source(file.path(script.basename, 'w_protein_ratio.r'))
 
 args = commandArgs(TRUE)
 
