@@ -241,7 +241,7 @@ w.protein.ratio = function(pep, filename, weight.matrix, weight.results, quant.m
   column.names = c(quant.columns,paste(quant.columns,"no.peptides",sep="."),paste(quant.columns,"weight",sep="."),paste(quant.columns,"rel.error",sep=".")) 
   colnames(quant.table) = column.names
   
-  prot_quant_table_file = paste(filename, "_protein_quant_table.txt", sep="")
+  prot_quant_table_file = file.path(filename, "_protein_quant_table.txt")
   write.table(quant.table, file=prot_quant_table_file, col.names=NA, sep="\t", quote=F)
   
   #Save protein ratio table
@@ -250,7 +250,7 @@ w.protein.ratio = function(pep, filename, weight.matrix, weight.results, quant.m
   column.names = c("Proteins.in.group",ratio.columns,paste(ratio.columns,"no.peptides",sep=".")) 
   colnames(ratio.table) = column.names
   
-  wquant_filename = paste(filename, "_w_protein_ratios.txt", sep="")
+  wquant_filename = file.path(filename, "_w_protein_ratios.txt")
   write.table(ratio.table, file=wquant_filename, col.names=NA, sep="\t", quote=F)
 }
   
