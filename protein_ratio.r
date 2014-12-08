@@ -87,11 +87,10 @@ protein.ratio = function(pep, filename_out, quant.min, group.index, protein.inde
   rownames(protein.peptides) = unique.proteins
   
   #Save table
-  quant.table = cbind(protein.ratios,protein.peptides)
+  quant.table = cbind(rownames(protein.ratios), protein.ratios, protein.peptides)
   quant.columns = c(1:ncol(pep.quant))
-  column.names = c(quant.columns,paste(quant.columns,"no.peptides",sep=".")) 
-  colnames(quant.table) = column.names
+  column.names = c("Protein accession", quant.columns,paste(quant.columns,"no.peptides",sep=".")) 
   
-  write.table(quant.table, file=filename_out, col.names=NA, sep="\t", quote=F)
+  write.table(quant.table, file=filename_out, row.names=F, col.names=column.names, sep="\t", quote=F)
 }
 
