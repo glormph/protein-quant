@@ -236,20 +236,12 @@ w.protein.ratio = function(pep, filename, weight.matrix, weight.results, quant.m
   protein.weights = round(protein.weights)
   
   #Save table
-  quant.table = cbind(rownames(protein.ratios), protein.ratios, protein.peptides, protein.weights, error.matrix)
+  quant.table = cbind(rownames(protein.ratios), unique.proteins.all, protein.ratios, protein.peptides, protein.weights, error.matrix)
   quant.columns = c(1:ncol(pep.quant))
-  column.names = c("Protein accesion", quant.columns, paste(quant.columns, "no.peptides", sep="."), paste(quant.columns, "weight", sep="."), paste(quant.columns, "rel.error", sep=".")) 
+  column.names = c("Protein accesion", "Proteins in group", quant.columns, paste(quant.columns, "# peptides", sep=" "), paste(quant.columns, "weight", sep=" "), paste(quant.columns, "rel. error", sep=" ")) 
   
-  prot_quant_table_file = file.path(filename, "_protein_quant_table.txt")
+  prot_quant_table_file = paste(filename, "protein_quant_table.txt", sep="_")
   write.table(quant.table, file=prot_quant_table_file, col.names=column.names, row.names=F, sep="\t", quote=F)
-  
-  #Save protein ratio table
-  ratio.table = cbind(rownames(protein.ratios), unique.proteins.all, protein.ratios, protein.peptides)
-  ratio.columns = c(1:ncol(pep.quant))
-  column.names = c("Protein accession", "Proteins.in.group", ratio.columns, paste(ratio.columns, "no.peptides", sep=".")) 
-  
-  wquant_filename = file.path(filename, "_w_protein_ratios.txt")
-  write.table(ratio.table, file=wquant_filename, col.names=column.names, row.names=F, sep="\t", quote=F)
 }
   
   
