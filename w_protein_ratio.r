@@ -240,8 +240,7 @@ w.protein.ratio = function(pep, filename, weight.matrix, weight.results, quant.m
   quant.columns = c(1:ncol(pep.quant))
   column.names = c("Protein accesion", "Proteins in group", quant.columns, paste(quant.columns, "# peptides", sep=" "), paste(quant.columns, "weight", sep=" "), paste(quant.columns, "rel. error", sep=" ")) 
   
-  prot_quant_table_file = paste(filename, "protein_quant_table.txt", sep="_")
-  write.table(quant.table, file=prot_quant_table_file, col.names=column.names, row.names=F, sep="\t", quote=F)
+  write.table(quant.table, file=filename, col.names=column.names, row.names=F, sep="\t", quote=F)
 }
   
   
