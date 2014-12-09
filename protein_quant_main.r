@@ -23,7 +23,7 @@ if (length(args)<7) {
        
        The name of the output file which will be written to the working directory
        
-       The minimum intensity to include (noise level)
+       The minimum intensity to include (noise level, must be higher than 0)
        
        Index for column with protein group accessions
        

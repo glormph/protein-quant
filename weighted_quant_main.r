@@ -30,7 +30,7 @@ if (length(args)<9) {
        The name of the base output file to be written to the current working directory
        This script will write 2 files using this base name
 
-       The minimum intensity to include (noise level)
+       The minimum intensity to include (noise level, must be higher than 0)
        
        Index for column with protein group accessions
        
