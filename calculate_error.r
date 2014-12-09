@@ -21,11 +21,8 @@ calculate.error = function(pep, weight.matrix, quant.min, group.index, num, den)
   pep.quant[pep.quant<quant.min] = NA
  
   #Remove peptides (rows) with NA in at least one quant column
-  index.na = unique(c(which(is.na(pep.quant[,1])),which(is.na(pep.quant[,2]))))
-  if (length(index.na)>0) {
-    pep.quant = pep.quant[-index.na,]
-    pep = pep[-index.na,]
-  } 
+  pep = pep[!is.na(pep.quant[,1])&!is.na(pep.quant[,2]),]
+  pep.quant = pep.quant[!is.na(pep.quant[,1]) & !is.na(pep.quant[,2]),]
   
   #Get unique proteins
   proteins = as.character(pep[,group.index])
@@ -73,10 +70,9 @@ calculate.error = function(pep, weight.matrix, quant.min, group.index, num, den)
     #Number of peptides for protein
     weight.results$peptides[protein.i] = length(pep.ratio)
   }
-  
+
   #Check and remove NA ratios
-  index.na = which(is.na(weight.results$ratios))
-  weight.results[index.na,] = NA
+  weight.results[is.na(weight.results$ratios),] = NA
   
   #Save weight results
   return(weight.results) 

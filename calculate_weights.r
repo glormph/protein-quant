@@ -19,10 +19,7 @@ calculate.weights = function(pep.data, quant.min, num, den) {
   pep.quant[pep.quant<quant.min] = NA
   
   #Remove missing data (peptides with NA in at least one quant column)
-  index.na = unique(c(which(is.na(pep.quant[,1])),which(is.na(pep.quant[,2]))))
-  if (length(index.na)>0) {
-    pep.quant = pep.quant[-index.na,]
-  } 
+  pep.quant = pep.quant[!is.na(pep.quant[,1]) & !is.na(pep.quant[,2]),]
   
   #Calculate variance as deviance from expected ratio (on log2 scale)
   estimated.ratio = log2(pep.quant[,1]/pep.quant[,2])
