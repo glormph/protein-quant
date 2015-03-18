@@ -43,8 +43,7 @@ outfilename = as.character(args[2])
 quant.min = as.numeric(args[3])
 group.index = as.numeric(args[4])
 protein.index = as.numeric(args[5])
-quant.range = strsplit(args[6],":")
-quant.index = c(quant.range[[1]][1]:quant.range[[1]][2])
+quant.index = as.integer(strsplit(args[6], ",")[[1]])
 if (length(args)>7) {
   den = c(as.numeric(args[7]),as.numeric(args[8]))
 } else {
