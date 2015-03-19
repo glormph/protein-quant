@@ -36,7 +36,7 @@ if (length(args)<9) {
        
        Index for column with proteins in protein group
        
-       Range of indices (a:b) for columns with quantitative data
+       Indices (a,b,c,etc) for columns with quantitative data
        
        Index for column to use as numerator in weight calculation
        
@@ -54,8 +54,7 @@ outfilename = as.character(args[2])
 quant.min = as.numeric(args[3])
 group.index = as.numeric(args[4])
 protein.index = as.numeric(args[5])
-quant.range = strsplit(args[6],":")
-quant.index = c(quant.range[[1]][1]:quant.range[[1]][2])
+quant.index = as.integer(strsplit(args[6], ",")[[1]])
 num.1 = as.numeric(args[7])
 den.1 = as.numeric(args[8])
 if (length(args)>9) {

@@ -29,7 +29,7 @@ if (length(args)<7) {
        
        Index for column with proteins in protein group
        
-       Range of indices (a:b) for columns with quantitative data
+       Indices (a,b,c,etc) for columns with quantitative data
        
        Index for column to use as denominator in protein ratio calculation
        
@@ -49,7 +49,6 @@ if (length(args)>7) {
 } else {
   den = as.numeric(args[7])
 }
-
 #Call function to normalise peptides to same sample median
 normalized_peptides = norm.sample.median(dataset, quant.index)
 
