@@ -88,8 +88,8 @@ protein.ratio = function(pep, filename_out, quant.min, group.index, protein.inde
   
   #Save table
   quant.table = cbind(rownames(protein.ratios), protein.ratios, protein.peptides)
-  quant.columns = c(1:ncol(pep.quant))
-  column.names = c("Protein accession", quant.columns,paste(quant.columns,"# quanted PSMs",sep=" - "))
+  quant.columns = colnames(pep.quant)
+  column.names = c("Protein accession", quant.columns, paste(quant.columns,"# quanted PSMs",sep=" - "))
   
   write.table(quant.table, file=filename_out, row.names=F, col.names=column.names, sep="\t", quote=F)
 }
