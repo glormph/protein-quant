@@ -43,7 +43,7 @@ w.protein.ratio = function(pep, filename, weight.matrix, weight.results, quant.m
   if (length(den)==1) {
     quant.den = pep[,den]
   } else {
-    quant.den = apply(cbind(pep[,den[1]],pep[,den[2]]),1,mean,na.rm=TRUE)  
+    quant.den = apply(cbind(pep[,den]),1,mean,na.rm=TRUE)  
   }
   
   #Get unique proteins

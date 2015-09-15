@@ -42,9 +42,7 @@ if (length(args)<9) {
        
        Index for column to use as denominator in weight calculation
        
-       Index for column to use as denominator in final protein ratio calculation
-       
-       Optional index for column to use as denominator in final protein ratio calculation (mean of two columns)
+       One or more indices for columns to use as denominators in final protein ratio calculation (mean of columns is used)
        
        ")
 }
@@ -58,7 +56,7 @@ quant.index = as.integer(strsplit(args[6], ",")[[1]])
 num.1 = as.numeric(args[7])
 den.1 = as.numeric(args[8])
 if (length(args)>9) {
-  den.2 = c(as.numeric(args[9]),as.numeric(args[10]))
+  den.2 = as.numeric(args[9:length(args)])
 } else {
   den.2 = as.numeric(args[9])
 }
