@@ -42,7 +42,7 @@ group.index = as.numeric(args[4])
 protein.index = as.numeric(args[5])
 quant.index = as.integer(strsplit(args[6], ",")[[1]])
 if (length(args)>7) {
-  den = as.numeric(args[7:len(args)])
+  den = as.numeric(args[7:length(args)])
 } else {
   den = as.numeric(args[7])
 }
