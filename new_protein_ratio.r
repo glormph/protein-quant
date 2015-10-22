@@ -54,8 +54,11 @@ protein.ratio = function(pep, filename_out, group.index, protein.index, quant.in
     collected_ratios = rbind(collected_ratios, as.matrix(pep[i, quant.index]))
     }
   # collect last protein also
-  protein_ratios[protein_index, chan] = median(collected_ratios[,chan], na.rm=T)
-  protein_psmno[protein_index, chan] = length(collected_ratios[complete.cases(collected_ratios[, chan]), chan])
+  for (chan in 1:ncol(collected_ratios)){
+    protein_ratios[protein_index, chan] = median(collected_ratios[,chan], na.rm=T)
+    protein_psmno[protein_index, chan] = length(collected_ratios[complete.cases(collected_ratios[, chan]), chan])
+    }
+  rownames(protein_ratios)[protein_index] = lastprotein
 
   # Output table
   quant.table = cbind(rownames(protein_ratios), protein_ratios, protein_psmno)
