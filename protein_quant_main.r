@@ -42,12 +42,12 @@ group.index = as.numeric(args[4])
 protein.index = as.numeric(args[5])
 quant.index = as.integer(strsplit(args[6], ",")[[1]])
 if (length(args)>7) {
-  den = as.numeric(args[7:length(args)])
+  denominator = as.numeric(args[7:length(args)])
 } else {
-  den = as.numeric(args[7])
+  denominator = as.numeric(args[7])
 }
 #Call function to normalise peptides to same sample median
-normalized_peptides = norm.sample.median(dataset, quant.index)
+normalized_psms = norm.sample.median(dataset, quant.min, quant.index, denominator)
 
 #Call function to calculate protein ratios
-protein.ratio(normalized_peptides, outfilename, quant.min, group.index, protein.index, quant.index, den)
+protein.ratio(normalized_psms, outfilename, group.index, protein.index, quant.index)
