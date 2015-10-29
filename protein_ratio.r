@@ -1,25 +1,14 @@
-########################################
-# Function to calculate protein ratios
-# Lina Hultin Rosenberg 20140918 
-# lina.hultin-rosenberg@scilifelab.se
-########################################
+###############
+###############
 
 
-protein.ratio = function(pep, filename_out, quant.min, group.index, protein.index, quant.index, den) {
-  
-  #Define parameters for weight calculation
-  ratio = 1           #Expected ratio between duplicates
-  bins = 8            #Number of bins for weight calculation
-  
+protein.ratio = function(pep, filename_out, group.index, protein.index, quant.index) {
   #Remove peptides without protein group accession and peptides shared between several protein groups
-  pep = pep[pep[,group.index]!="",]
-  pep = pep[-grep(";",pep[,group.index]),]
+  pep = pep[pep[, group.index] != "", ]
+  pep = pep[!grepl(";", pep[,group.index]), ]
   
   #Extract quant columns
   pep.quant = pep[,quant.index]
-  
-  #Exchange everything smaller than quant.min by NA
-  pep.quant[pep.quant<quant.min] = NA
   
   #Remove peptides (rows) with NA in all quant columns
   remove.index = c()
@@ -34,63 +23,47 @@ protein.ratio = function(pep, filename_out, quant.min, group.index, protein.inde
     pep.quant = pep.quant[-remove.index,]
     pep = pep[-remove.index,]
   }
+  # Sort peptide table by protein
+  pep = pep[order(pep[,group.index]),]
+  pep[,group.index] = as.character(pep[, group.index])
+  pepcolnames = colnames(pep)
   
-  #Define denominator for protein ratio calculation
-  if (length(den)==1) {
-    quant.den = pep[,den]
-  } else {
-    quant.den = apply(cbind(pep[,den]),1,mean,na.rm=TRUE)  
-  }
+  # Get amount of proteins left, create empty table
+  unique_proteins = unique(pep[,group.index])
+  protein_ratios = matrix(data=NA, nrow=length(unique_proteins), ncol=length(quant.index))
+  rownames(protein_ratios) = 1:length(unique_proteins)
+  protein_psmno = matrix(data=NA, nrow=length(unique_proteins), ncol=length(quant.index))
   
-  #Get unique proteins
-  proteins = as.character(pep[,group.index])
-  proteins.all = as.character(pep[,protein.index])
-  index.duplicated = which(duplicated(proteins))
-  unique.proteins = proteins[-index.duplicated]
-  unique.proteins.all = proteins.all[-index.duplicated]
-  no.proteins = length(unique.proteins)
-  
-  ##Calculate protein ratios (all columns)
-  
-  protein.ratios = matrix(data=NA,nrow=no.proteins,ncol=ncol(pep.quant))
-  protein.peptides = matrix(data=NA,nrow=no.proteins,ncol=ncol(pep.quant))
-  
-  ratio.list = c()
-  ratio.i = 1
-  for (i in 1:ncol(pep.quant)) {
-    
-    #Select quant columns to calculate protein ratio for
-    quant.num = pep.quant[,i]   
-    
-    #Get peptides belonging to each protein
-    for (protein.i in 1:no.proteins) {
-      
-      quant.num.protein = quant.num[proteins==unique.proteins[protein.i]]
-      quant.den.protein = quant.den[proteins==unique.proteins[protein.i]]
-      
-      #Calculate peptide ratios and remove empty
-      pep.ratio = quant.num.protein/quant.den.protein
-      index.na = which(is.na(pep.ratio))
-      if (length(index.na)>0) {
-        pep.ratio = pep.ratio[-index.na]
-      } 
-      
-      #Calculate protein ratio as median over peptide ratios
-      protein.ratios[protein.i,ratio.i] = median(pep.ratio,na.rm=TRUE)
-      
-      #Number of peptides used for protein
-      protein.peptides[protein.i,ratio.i] = length(pep.ratio)
+  # Loop sorted PSM table to get PSMs for each protein.
+  protein_index = 1
+  collected_ratios = matrix(nrow=0, ncol=ncol(protein_ratios))
+  colnames(collected_ratios) = colnames(pep[i, quant.index])
+  lastprotein = as.character(pep[1, group.index])
+  for (i in 1:dim(pep)[1]){
+    if (!identical(as.character(pep[i, group.index]), lastprotein)){
+       for (chan in 1:ncol(collected_ratios)){
+         protein_ratios[protein_index, chan] = median(collected_ratios[,chan], na.rm=T)
+         protein_psmno[protein_index, chan] = length(collected_ratios[complete.cases(collected_ratios[, chan]), chan])
+         }
+       rownames(protein_ratios)[protein_index] = lastprotein
+       protein_index = protein_index + 1
+       collected_ratios = matrix(nrow=0, ncol=ncol(protein_ratios))
+       colnames(collected_ratios) = colnames(pep[i, quant.index])
+       lastprotein = as.character(pep[i, group.index])
+       }
+    collected_ratios = rbind(collected_ratios, as.matrix(pep[i, quant.index]))
     }
-    ratio.i = ratio.i+1
-  }
-  rownames(protein.ratios) = unique.proteins
-  rownames(protein.peptides) = unique.proteins
-  
-  #Save table
-  quant.table = cbind(rownames(protein.ratios), protein.ratios, protein.peptides)
-  quant.columns = colnames(pep.quant)
+  # collect last protein also
+  for (chan in 1:ncol(collected_ratios)){
+    protein_ratios[protein_index, chan] = median(collected_ratios[,chan], na.rm=T)
+    protein_psmno[protein_index, chan] = length(collected_ratios[complete.cases(collected_ratios[, chan]), chan])
+    }
+  rownames(protein_ratios)[protein_index] = lastprotein
+
+  # Output table
+  quant.table = cbind(rownames(protein_ratios), protein_ratios, protein_psmno)
+  quant.columns = pepcolnames[quant.index]
   column.names = c("Protein accession", quant.columns, paste(quant.columns,"# quanted PSMs",sep=" - "))
   
   write.table(quant.table, file=filename_out, row.names=F, col.names=column.names, sep="\t", quote=F)
 }
-

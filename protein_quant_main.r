@@ -11,8 +11,8 @@ initial.options <- commandArgs(trailingOnly = FALSE)
 file.arg.name <- "--file="
 script.name <- sub(file.arg.name, "", initial.options[grep(file.arg.name, initial.options)])
 script.basename <- dirname(script.name)
-source(file.path(script.basename, 'new_norm_sample_median.r'))
-source(file.path(script.basename, 'new_protein_ratio.r'))
+source(file.path(script.basename, 'norm_sample_median.r'))
+source(file.path(script.basename, 'protein_ratio.r'))
 
 args = commandArgs(TRUE)
 
