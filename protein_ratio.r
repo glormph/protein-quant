@@ -2,7 +2,7 @@
 ###############
 
 
-protein.ratio = function(pep, filename_out, group.index, protein.index, quant.index) {
+protein.ratio = function(pep, filename_out, group.index, quant.index) {
   #Remove peptides without protein group accession and peptides shared between several protein groups
   pep = pep[pep[, group.index] != "", ]
   pep = pep[!grepl(";", pep[,group.index]), ]

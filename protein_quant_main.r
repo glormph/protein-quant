@@ -27,8 +27,6 @@ if (length(args)<7) {
        
        Index for column with protein group accessions
        
-       Index for column with proteins in protein group
-       
        Indices (a,b,c,etc) for columns with quantitative data
        
        One or more indices for columns to use as denominators in protein ratio calculation (mean of columns is taken)
@@ -39,15 +37,14 @@ dataset = as.character(args[1])
 outfilename = as.character(args[2])
 quant.min = as.numeric(args[3])
 group.index = as.numeric(args[4])
-protein.index = as.numeric(args[5])
-quant.index = as.integer(strsplit(args[6], ",")[[1]])
-if (length(args)>7) {
-  denominator = as.numeric(args[7:length(args)])
+quant.index = as.integer(strsplit(args[5], ",")[[1]])
+if (length(args)>6) {
+  denominator = as.numeric(args[6:length(args)])
 } else {
-  denominator = as.numeric(args[7])
+  denominator = as.numeric(args[6])
 }
 #Call function to normalise peptides to same sample median
 normalized_psms = norm.sample.median(dataset, quant.min, quant.index, denominator)
 
 #Call function to calculate protein ratios
-protein.ratio(normalized_psms, outfilename, group.index, protein.index, quant.index)
+protein.ratio(normalized_psms, outfilename, group.index, quant.index)
