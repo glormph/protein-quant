@@ -10,6 +10,7 @@ norm.sample.median = function(filename, quant.min, quant.index, denominator)
   
   #Load peptide data
   pep.data = read.delim(filename,header=TRUE,check.names=FALSE,row.names=NULL,sep="\t")
+  channels = colnames(pep.data)[quant.index] 
 
   # Set NA to channel if below noise level  
   pep.quant = pep.data[, quant.index] 
@@ -27,8 +28,11 @@ norm.sample.median = function(filename, quant.min, quant.index, denominator)
   ratios = apply(pep.data[, quant.index], 2, divide_column, denominator=quant.den)
   norm_ratios = ratios
   sample.median = c()
+  print("Sample medians per channel:")
   for (i in 1:ncol(ratios)) {
     sample.median[i] = median(ratios[,i],na.rm=TRUE)
+    report = sprintf("channel %s: %f", channels[i], sample.median[i])
+    print(report)
   }
   #median.mean = mean(sample.median)
   for (i in 1:ncol(ratios)) {
